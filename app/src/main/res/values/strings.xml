@@ -2,5 +2,8 @@
     <string name="google_maps_API_key">AIzaSyBQcWWlsDATP7TYSReuPmbgncPq28KoYTA</string>
 
     <string name="app_name">iChange</string>
-
+    <string name="home_icon">Home</string>
+    <string name="chat_icon">Chat</string>
+    <string name="notification_icon">Notifications</string>
+    <string name="favorite_icon">Favorites</string>
 </resources>

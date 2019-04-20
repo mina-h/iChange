@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "758002332434",
+    "firebase_url": "https://ichange-c4ee8.firebaseio.com",
+    "project_id": "ichange-c4ee8",
+    "storage_bucket": "ichange-c4ee8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758002332434:android:fa21842382e88497",
+        "android_client_info": {
+          "package_name": "com.example.ichange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758002332434-o700osa1ehjgbi50overfv1olcbu8o0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ichange",
+            "certificate_hash": "05b5b6849a506a803d05189a208370f0bd2deecb"
+          }
+        },
+        {
+          "client_id": "758002332434-quq8b25707v14qjorg9jr1pu68b6rvl2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMGqERGyyMvB2BwoDLAXd_wyVszTmMxYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758002332434-quq8b25707v14qjorg9jr1pu68b6rvl2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

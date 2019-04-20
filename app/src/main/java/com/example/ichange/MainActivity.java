@@ -2,15 +2,21 @@ package com.example.ichange;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,22 +28,89 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(isServicesOk()){
-            init();
-        }
+
+        // FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+//        if(isServicesOk()){
+//            init();
+//        }
+        isServicesOk();
+
+        Intent intent = new Intent(MainActivity.this, SigninActivity.class);
+        startActivity(intent);
+//
+//        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+//        bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
 
-    private void init(){
-        Button btnMap = findViewById(R.id.btnMap);
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
+    private BottomNavigationView.OnNavigationItemSelectedListener  navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                   // Fragment selectedFragment = null;
 
-    }
+                    switch (item.getItemId()) {
+                        case R.id.nav_home:
+                   //      selectedFragment = new HomeFragment();
+
+                           Intent intent1 = new Intent(MainActivity.this, MapActivity.class);
+                           startActivity(intent1);
+                            break;
+                        case R.id.nav_chat:
+
+                            Intent intent2 = new Intent(MainActivity.this, ChatActivity.class);
+                            startActivity(intent2);
+
+                   //        selectedFragment = new ChatFragment();
+//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                    selectedFragment).commit();
+                            break;
+                        case R.id.nav_camera:
+
+                            Intent intent3 = new Intent(MainActivity.this, CameraActivity.class);
+                            startActivity(intent3);
+                  //         selectedFragment = new CameraFragment();
+//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                    selectedFragment).commit();
+                            break;
+                        case R.id.nav_notification:
+
+                            Intent intent4 = new Intent(MainActivity.this, NotificationsActivity.class);
+                            startActivity(intent4);
+                  //         selectedFragment = new NotificationsFragment();
+//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                    selectedFragment).commit();
+                            break;
+                        case R.id.nav_favorite:
+
+                            Intent intent5 = new Intent(MainActivity.this, FavoritesActivity.class);
+                            startActivity(intent5);
+                   //         selectedFragment = new FavoritesFragment();
+//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                                    selectedFragment).commit();
+                            break;
+
+                    }
+
+//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+//                        selectedFragment).commit();
+
+                    return false;
+                }
+            };
+
+//    private void init(){
+//        Button btnMap = findViewById(R.id.btnMap);
+//        btnMap.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, MapActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//    }
     public boolean isServicesOk(){
         Log.d(TAG, "isServicesOk: checking google services version");
 
