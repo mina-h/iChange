@@ -31,13 +31,23 @@
 
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/log_out"
+        android:layout_toEndOf="@+id/text_view_show_uploads"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/text_view_show_uploads"
-        android:text="logout" />
+        android:text="Log out" />
+
+
+    <!--<Button-->
+        <!--android:id="@+id/logout"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/text_view_show_uploads"-->
+        <!--android:text="logout" />-->
 
 
 </RelativeLayout>

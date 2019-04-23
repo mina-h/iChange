@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -73,8 +74,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Button mTextViewShowUploads;
     Button logoutBtn;
-    FirebaseAuth mAuth;
-    FirebaseAuth.AuthStateListener mAuthListener;
+// vase sign in az to main avordam:
+    private FirebaseAuth mAuth;
+
+//    FirebaseAuth mAuth;
+//    FirebaseAuth.AuthStateListener mAuthListener;
 
     private FirebaseFirestore db;
     private List<Upload> mUploads;
@@ -82,16 +86,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        mAuth.addAuthStateListener(mAuthListener);
+//    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mAuth = FirebaseAuth.getInstance();
+        onStart();
+
+
 
         getLocationPermission();
 
@@ -106,24 +115,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        logoutBtn = findViewById(R.id.logout);
-        mAuth = FirebaseAuth.getInstance();
+         logoutBtn = findViewById(R.id.log_out);
+//        mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getCurrentUser() == null) {
-                    startActivity(new Intent(MapActivity.this, SigninActivity.class));
-                }
-            }
-        };
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-            }
-        });
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                if (firebaseAuth.getCurrentUser() == null) {
+//                    startActivity(new Intent(MapActivity.this, SigninActivity.class));
+//                }
+//            }
+//        };
+//
+//        logoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mAuth.signOut();
+//            }
+//        });
 
 
         mUploads = new ArrayList<>();
@@ -165,7 +174,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     }
                 });
-    }
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                sendToStart();
+
+            }
+        });    }
 
     private void getDeviceLocation() {
         Log.d(TAG, "getDeviceLocation: getting the devices current location");
@@ -198,6 +215,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser == null){
+            sendToStart();
+//            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+//            startActivity(startIntent);
+//            finish();
+        }
+// else {
+//            Intent intent = new Intent(MapActivity.this,MapActivity.class);
+//            startActivity(intent);
+//        }
+    }
+
+    private void sendToStart(){
+        Intent startIntent = new Intent(MapActivity.this, StartActivity.class);
+        startActivity(startIntent);
+        finish();
+    }
 
     private void moveCamera(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveCamera: moving the camera to: lat: " + latLng.latitude + ", lng: " + latLng.longitude);

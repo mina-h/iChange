@@ -16,9 +16,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
+
+    //private FirebaseAuth mAuth;
 
     private static final String TAG = "MainActivity";
     private static final int ERROR_DIALOG_REQUEST = 9001;
@@ -37,12 +41,37 @@ public class MainActivity extends AppCompatActivity {
 //        }
         isServicesOk();
 
-        Intent intent = new Intent(MainActivity.this, SigninActivity.class);
+
+//        mAuth = FirebaseAuth.getInstance();
+
+//        onStart();
+
+
+
+
+        Intent intent = new Intent(MainActivity.this,MapActivity.class);
         startActivity(intent);
-//
+
 //        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 //        bottomNav.setOnNavigationItemSelectedListener(navListener);
     }
+
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//
+//        if (currentUser == null){
+//            Intent startIntent = new Intent(MainActivity.this, StartActivity.class);
+//            startActivity(startIntent);
+//            finish();
+//        } else {
+//            Intent intent = new Intent(MainActivity.this,MapActivity.class);
+//            startActivity(intent);
+//        }
+//    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener  navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
