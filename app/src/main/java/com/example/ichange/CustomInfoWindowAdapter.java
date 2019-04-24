@@ -1,6 +1,9 @@
 package com.example.ichange;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
     public CustomInfoWindowAdapter(Context mContext) {
         this.mContext = mContext;
         mWindow = LayoutInflater.from(mContext).inflate(R.layout.custom_info_window, null);
+
     }
 
     private void rendoWindowText(Marker marker, View view){
@@ -37,19 +41,21 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
 
         String exchange = upload.getmXchange();//marker.getTitle();
         TextView tvExchange =  view.findViewById(R.id.exchange);
-        if(!exchange.equals("")){
+        if(!exchange.equals("")) {
             tvExchange.setText(exchange);
 
 
             ImageView imageView = view.findViewById(R.id.info_marker_image);
 
-            if ( marker.getZIndex() >= 0 )
-            Picasso.with(mContext)
+            if (marker.getZIndex() >= 0) {
+                Log.d("david", "rendoWindowText: a " + marker.getZIndex());
+                Picasso.with(mContext)
                     .load(upload.getImageUrl())
                     .fit()
                     //   .centerCrop()
                     .into(imageView);
-            else {
+            } else {
+                Log.d("david", "rendoWindowText: b" + marker.getZIndex());
                 Picasso.with(mContext)
                         .load(upload.getImageUrl())
                         .fit()
@@ -57,6 +63,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter{
                         .into(imageView, new InfoWindowRefresher(marker));
             }
         }
+
+
 
     }
 

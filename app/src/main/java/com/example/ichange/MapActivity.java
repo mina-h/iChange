@@ -46,9 +46,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+
         Toast.makeText(this, "Map is ready", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "onMapReady: map is ready");
         mMap = googleMap;
+
 
         if (mLocationPermissionsGranted) {
             getDeviceLocation();
@@ -61,7 +64,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
 
         }
+
     }
+
+    public static final String EXTRA_MESSAGE = "com.example.myapplication2.MESSAGE";
+    public static final String EXTRA_MESSAGE1 = "com.example.myapplication2.MESSAGE1";
+    public static final String EXTRA_MESSAGE2 = "com.example.myapplication2.MESSAGE2";
+
+
 
     private static final String TAG = "MapActivity";
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -157,7 +167,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
                             }
-                            for (Upload upload : mUploads) {
+                            for (final Upload upload : mUploads) {
                                 LatLng pos = new LatLng(upload.getmGeopoint().getLatitude(), upload.getmGeopoint().getLongitude());
                                 MarkerOptions options = new MarkerOptions()
                                         .position(pos)
@@ -166,21 +176,41 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 Marker marker = mMap.addMarker(options);
                                 marker.setTag(upload);
                                 marker.setZIndex(-1);
-                            }
 
-                        } else {
+
+                                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                    @Override
+                                    public void onInfoWindowClick(Marker arg0) {
+                                        // call an activity(xml file)
+                                        Intent intent = new Intent(MapActivity.this, FinalImage.class);
+                                        Upload upload = (Upload) arg0.getTag();
+                                        intent.putExtra(EXTRA_MESSAGE, upload.getName());
+                                        intent.putExtra(EXTRA_MESSAGE1, upload.getmXchange());
+
+                                        startActivity(intent);
+                                    }
+
+
+                                });
+
+
+                            }
+                        }
+                        else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }
 
                     }
                 });
 
+
+
+
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 sendToStart();
-
             }
         });    }
 
@@ -246,6 +276,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
+
+
 //        MarkerOptions options = new MarkerOptions()
 //                .position(latLng)
 //                .title(title);
