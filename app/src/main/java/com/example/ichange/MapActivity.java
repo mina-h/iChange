@@ -187,6 +187,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         intent.putExtra(EXTRA_MESSAGE, upload.getName());
                                         intent.putExtra(EXTRA_MESSAGE1, upload.getmXchange());
 
+                                        intent.putExtra(EXTRA_MESSAGE2, upload.getImageUrl());
+
+
+
                                         startActivity(intent);
                                     }
 

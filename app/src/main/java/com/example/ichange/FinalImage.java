@@ -1,6 +1,8 @@
 package com.example.ichange;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+
+import java.io.InputStream;
+import java.net.URL;
 
 public class FinalImage extends AppCompatActivity {
 
@@ -36,8 +42,8 @@ public class FinalImage extends AppCompatActivity {
 
 
         finalImage = findViewById(R.id.final_image);
-        dealerNumber = findViewById(R.id.dealer_number);
-        dealerEmail = findViewById(R.id.dealer_email);
+//        dealerNumber = findViewById(R.id.dealer_number);
+//        dealerEmail = findViewById(R.id.dealer_email);
 
 
         db = FirebaseFirestore.getInstance();
@@ -54,6 +60,15 @@ public class FinalImage extends AppCompatActivity {
         finalImageExchange.setText(exchangeWith);
 
 
+        Intent intent2 = getIntent();
+        String path = intent2.getStringExtra(MapActivity.EXTRA_MESSAGE2);
+        Picasso.with(this).load(path)
+                .into(finalImage);
+
+
+//        Bitmap bitmap = BitmapFactory.decodeFile((InputStream)new URL(path).getContent());
+//        finalImage.setImageBitmap(bitmap);
+
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         db.collection("users").document(uid)
@@ -64,11 +79,23 @@ public class FinalImage extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
+
                             String dealer =  task.getResult().getString("Name");
-
                             dealerName = findViewById(R.id.dealer_name);
-
                             dealerName.setText(dealer);
+
+                            String phone = task.getResult().getString("Phone");
+                            dealerNumber = findViewById(R.id.dealer_number);
+                            dealerNumber.setText(phone);
+
+
+                            String email = task.getResult().getString("Email");
+                            dealerEmail = findViewById(R.id.dealer_email);
+                            dealerEmail.setText(email);
+
+
+
+
 //                               Log.d("Doneee", document.getId() + " => " + document.getData());
                         } else {
                             Log.w("Erorrrr", "Error getting documents.", task.getException());
