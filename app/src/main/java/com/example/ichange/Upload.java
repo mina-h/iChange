@@ -18,39 +18,21 @@ public class Upload {
     @Exclude private String mId;
 
 
-//    public String getId() {
-//        return mId;
-//    }
-//
-//    public void setId(String id) {
-//        this.mId = id;
-//    }
-
-
-
     public Upload() {
         //empty constructor needed
-
     }
-
-
 
     public Upload(String name, String user, String imageUrl, String xchange, GeoPoint geoPoint, String id) {
 
         if (name.trim().equals("")) {
             name = "No Name";
         }
-
         mName = name;
         mImageUrl = imageUrl;
         mXchange = xchange;
         mGeopoint = geoPoint;
         mId = id;
         mUser = user;
-
-
-
-
     }
 
 

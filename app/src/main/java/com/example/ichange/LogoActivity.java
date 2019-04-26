@@ -15,7 +15,6 @@ public class LogoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
 
-
         t = new Timer();
         t.schedule(new TimerTask() {
             @Override
@@ -25,7 +24,4 @@ public class LogoActivity extends AppCompatActivity {
             }
         }, 1000);
     }
-
-
-
 }

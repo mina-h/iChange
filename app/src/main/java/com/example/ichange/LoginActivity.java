@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout mLoginnPassword;
     private Button mlogin_btn;
     private ProgressDialog mLoginProgress;
-
     private FirebaseAuth mAuth;
 
     @Override
@@ -32,10 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-
-
         mLoginProgress = new ProgressDialog(this);
-
         mLoginEmail = findViewById(R.id.login_email);
         mLoginnPassword = findViewById(R.id.login_password);
         mlogin_btn = findViewById(R.id.login_btn);
@@ -56,13 +52,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     loginUser(email, password);
                 }
-
-
             }
         });
     }
-
-
 
 
     private void loginUser(String email, String password){
@@ -71,22 +63,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                  if(task.isSuccessful()){
-
                      mLoginProgress.dismiss();
-
                      Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                      startActivity(intent);
                      finish();
                  }else {
-
                      mLoginProgress.hide();
                      Toast.makeText(LoginActivity.this, "You got some error",
                              Toast.LENGTH_LONG).show();
                  }
             }
         });
-
-
     }
-
 }

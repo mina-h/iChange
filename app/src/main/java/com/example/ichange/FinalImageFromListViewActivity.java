@@ -52,82 +52,25 @@ public class FinalImageFromListViewActivity extends AppCompatActivity {
 
 
         finalImage = findViewById(R.id.final_image_list);
-//        dealerNumber = findViewById(R.id.dealer_number);
-//        dealerEmail = findViewById(R.id.dealer_email);
-
 
         db = FirebaseFirestore.getInstance();
         finalImageName = findViewById(R.id.final_image_name_list);
         finalImageExchange = findViewById(R.id.final_image_exchange_with_list);
 
 
-//
-//        checkBox = findViewById(R.id.nav_checkbox_list);
-//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//                if(isChecked){
-//                    Intent intent = getIntent();
-//                    String id = intent.getStringExtra((ImageAdapter.EXTRA_MESSAGE7));
-//
-//                    Map<String, Object> favorites = new HashMap<>();
-//                    favorites.put("id", id);
-//
-//                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//                    db.collection("users").document(uid).collection("favorites")
-//                            .add(favorites)
-//                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                @Override
-//                                public void onSuccess(DocumentReference documentReference) {
-////                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-////                                    Log.w(TAG, "Error adding document", e);
-//                                }
-//                            });
-//
-//
-//                }
-//            }
-//        });
 
-//        Intent intent = getIntent();
-//        String imageName = intent.getStringExtra(MapActivity.EXTRA_MESSAGE);
-//        finalImageName.setText(imageName);
-
-
-
-//        from adapter
         Intent intentList = getIntent();
         String imageNameList = intentList.getStringExtra(ImageAdapter.EXTRA_MESSAGE3);
         finalImageName.setText(imageNameList);
 
-//
-//        Intent intent1 = getIntent();
-//        String exchangeWith = intent1.getStringExtra(MapActivity.EXTRA_MESSAGE1);
-//        finalImageExchange.setText(exchangeWith);
-
-        //from adapter
         Intent intentList1 = getIntent();
         String exchangeWithList = intentList1.getStringExtra(ImageAdapter.EXTRA_MESSAGE4);
         finalImageExchange.setText(exchangeWithList);
-
-//
-//        Intent intent2 = getIntent();
-//        String path = intent2.getStringExtra(MapActivity.EXTRA_MESSAGE2);
-//        Picasso.with(this).load(path)
-//                .into(finalImage);
 
         Intent intent3 = getIntent();
         String path1 = intent3.getStringExtra(ImageAdapter.EXTRA_MESSAGE5);
         Picasso.with(this).load(path1)
                 .into(finalImage);
-
-
 
         Intent intent4 = getIntent();
         String owner = intent4.getStringExtra(ImageAdapter.EXTRA_MESSAGE6);
@@ -156,21 +99,11 @@ public class FinalImageFromListViewActivity extends AppCompatActivity {
                             dealerEmail.setText(email);
 
 
-
-
-//                               Log.d("Doneee", document.getId() + " => " + document.getData());
                         } else {
-                            Log.w("Erorrrr", "Error getting documents.", task.getException());
+                            Log.w("Error", "Error getting documents.", task.getException());
                         }
                     }
                 });
-
-
-
-
-
-
-
 
     }
 }

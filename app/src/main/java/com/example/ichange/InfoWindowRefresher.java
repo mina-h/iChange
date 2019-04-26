@@ -16,7 +16,6 @@ public class InfoWindowRefresher implements Callback {
     public void onSuccess() {
 
         Log.d("david", "rendoWindowText: success" + markerToRefresh.getZIndex());
-
         markerToRefresh.setZIndex(0); //
         markerToRefresh.showInfoWindow();
     }
@@ -24,6 +23,5 @@ public class InfoWindowRefresher implements Callback {
     @Override
     public void onError() {
         Log.d("david", "rendoWindowText: error" + markerToRefresh.getZIndex());
-
     }
 }

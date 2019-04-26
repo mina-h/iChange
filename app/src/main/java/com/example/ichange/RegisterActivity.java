@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout mPhone;
     private Button mCreateBtn;
     private FirebaseAuth mAuth;
-
     private ProgressDialog mRegProgress;
     private FirebaseFirestore db;
 
@@ -54,9 +53,6 @@ public class RegisterActivity extends AppCompatActivity {
         mPassword = findViewById(R.id.reg_password);
         mCreateBtn = findViewById(R.id.reg_create_btn);
 
-
-
-
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,8 +61,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String phone_number = mPhone.getEditText().getText().toString();
                 String password = mPassword.getEditText().getText().toString();
 
-//                if (TextUtils.isEmpty(display_name) || TextUtils.isEmpty(email) || TextUtils
-//                        .isEmpty(password)) {
 
                     mRegProgress.setTitle("Registering user");
                     mRegProgress.setMessage("Please wait while we create your account");
@@ -98,13 +92,12 @@ public class RegisterActivity extends AppCompatActivity {
                             user.put("Email", email);
                             user.put("Phone", phone_number);
 
-
                             db.collection("users").document(uid)
                                     .set(user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Log.d("Addedddd", "DocumentSnapshot added with ID: " );
+                                            Log.d("Added", "DocumentSnapshot added with ID: " );
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -113,9 +106,6 @@ public class RegisterActivity extends AppCompatActivity {
                                             Log.w("Error", "Error adding document", e);
                                         }
                                     });
-
-
-
 
 
                             mRegProgress.dismiss();
@@ -129,15 +119,8 @@ public class RegisterActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(RegisterActivity.this, "You got some error",
                                     Toast.LENGTH_LONG).show();
-
                         }
-
-                        // ...
                     }
                 });
-
     }
-
-
-
 }

@@ -30,7 +30,6 @@ public class FavoritesActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
-
     private FirebaseFirestore db;
     private List<Upload> mUploads;
 
@@ -46,11 +45,8 @@ public class FavoritesActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.fav_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         mUploads = new ArrayList<>();
-
         db = FirebaseFirestore.getInstance();
-
         mAdapter = new ImageAdapter(FavoritesActivity.this, mUploads);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -61,8 +57,6 @@ public class FavoritesActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
-                            //  List<String> favoriteIds = new ArrayList<>();
-
                             for (QueryDocumentSnapshot document : task.getResult()){
                                 String favoId = document.getString("id");
                                 DocumentReference uploadRef = db.collection("uploads")
@@ -75,40 +69,23 @@ public class FavoritesActivity extends AppCompatActivity {
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 });
-
                             }
-
                         } else {
                             Log.w("TAG", "Error getting documents.", task.getException());
                         }
-
                     }
                 });
-
-
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener  navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    // Fragment selectedFragment = null;
-
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-
                             Intent intent1 = new Intent(FavoritesActivity.this, MapActivity.class);
                             startActivity(intent1);
                             break;
-
-
-//                        case R.id.nav_chat:
-//
-//                           Intent intent2 = new Intent(FavoritesActivity.this, ChatActivity.class);
-//                           startActivity(intent2);
-//                            break;
-
 
                         case R.id.nav_camera:
 
@@ -116,25 +93,10 @@ public class FavoritesActivity extends AppCompatActivity {
                             startActivity(intent3);
                             break;
 
-
-//                        case R.id.nav_notification:
-//
-//                            Intent intent4 = new Intent(FavoritesActivity.this, NotificationsActivity.class);
-//                            startActivity(intent4);
-//                            break;
-
-
                         case R.id.nav_favorite:
-
-//                            Intent intent5 = new Intent(ChatActivity.this, FavoritesActivity.class);
-//                            startActivity(intent5);
                             break;
 
                     }
-
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        selectedFragment).commit();
-
                     return false;
                 }
             };

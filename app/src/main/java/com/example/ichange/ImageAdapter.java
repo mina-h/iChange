@@ -28,12 +28,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public static final String EXTRA_MESSAGE7 = "com.example.myapplication2.MESSAGE7";
 
 
-
-
     public ImageAdapter(Context context, List<Upload> uploads){
         mContext = context;
         mUploads = uploads;
-
     }
 
     @NonNull
@@ -50,8 +47,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         holder.textViewExchangeWith.setText(uploadCurrent.getmXchange());
         Picasso.with(mContext)
                 .load(uploadCurrent.getImageUrl())
-               .fit()
-            //   .centerCrop()
+                .fit()
                 .into(holder.imageView);
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +61,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 intent.putExtra(EXTRA_MESSAGE7, uploadCurrent.getmId());
 
                 mContext.startActivity(intent);
-
             }
         });
     }
@@ -86,7 +81,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             textViewName = itemView.findViewById(R.id.text_view_name);
             imageView = itemView.findViewById(R.id.image_view_upload);
             textViewExchangeWith =  itemView.findViewById(R.id.text_view_exchange_with);
-
         }
     }
 }

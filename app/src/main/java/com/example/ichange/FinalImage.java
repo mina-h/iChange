@@ -51,12 +51,10 @@ public class FinalImage extends AppCompatActivity {
 
 
         finalImage = findViewById(R.id.final_image);
-//        dealerNumber = findViewById(R.id.dealer_number);
-//        dealerEmail = findViewById(R.id.dealer_email);
         db = FirebaseFirestore.getInstance();
-
-
         checkBox = findViewById(R.id.nav_checkbox);
+
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -74,17 +72,13 @@ public class FinalImage extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-//                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-//                                    Log.w(TAG, "Error adding document", e);
                                 }
                             });
-
-
                 }
             }
         });
@@ -100,21 +94,9 @@ public class FinalImage extends AppCompatActivity {
         finalImageName.setText(imageName);
 
 
-
-        //from adapter
-//        Intent intentList = getIntent();
-//        String imageNameList = intentList.getStringExtra(ImageAdapter.EXTRA_MESSAGE3);
-//        finalImageName.setText(imageNameList);
-
-
         Intent intent1 = getIntent();
         String exchangeWith = intent1.getStringExtra(MapActivity.EXTRA_MESSAGE1);
         finalImageExchange.setText(exchangeWith);
-
-        //from adapter
-//        Intent intentList1 = getIntent();
-//        String exchangeWithList = intentList1.getStringExtra(ImageAdapter.EXTRA_MESSAGE4);
-//        finalImageExchange.setText(exchangeWithList);
 
 
         Intent intent2 = getIntent();
@@ -123,27 +105,14 @@ public class FinalImage extends AppCompatActivity {
                 .into(finalImage);
 
 
-        //from adapter
-//        Intent intent3 = getIntent();
-//        String path1 = intent3.getStringExtra(ImageAdapter.EXTRA_MESSAGE5);
-//        Picasso.with(this).load(path1)
-//                .into(finalImage);
-
-
-
         Intent intent3 = getIntent();
         String owner = intent3.getStringExtra(MapActivity.EXTRA_MESSAGE4);
-//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         db.collection("users").document(owner)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                         if (task.isSuccessful()) {
-
-
                             String dealer =  task.getResult().getString("Name");
                             dealerName = findViewById(R.id.dealer_name);
                             dealerName.setText(dealer);
@@ -156,12 +125,8 @@ public class FinalImage extends AppCompatActivity {
                             dealerEmail = findViewById(R.id.dealer_email);
                             dealerEmail.setText(email);
 
-
-
-
-//                               Log.d("Doneee", document.getId() + " => " + document.getData());
                         } else {
-                            Log.w("Erorrrr", "Error getting documents.", task.getException());
+                            Log.w("Eror", "Error getting documents.", task.getException());
                         }
                     }
                 });
