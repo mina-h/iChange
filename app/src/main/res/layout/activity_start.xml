@@ -4,28 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:backgroundTint="#80FFFFFF"
-    android:backgroundTintMode="src_over"
+    android:background="@drawable/start_page"
+
     tools:context=".StartActivity">
 
 
     <Button
         android:id="@+id/registration_button"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Account" />
+        android:layout_width="300dp"
+        android:layout_marginTop="400dp"
+        android:layout_height="70dp"
+        android:text="Create a New Account"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@drawable/sign_up_btn"/>
 
     <Button
         android:id="@+id/login_button"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_below="@+id/registration_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login" />
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:background="@drawable/log_in_btn"
+        android:text="Alredy have an account" />
 
 
 

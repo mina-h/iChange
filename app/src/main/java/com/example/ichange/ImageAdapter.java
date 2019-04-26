@@ -1,7 +1,9 @@
 package com.example.ichange;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.TextureView;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -18,6 +21,14 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     private Context mContext;
     private List<Upload> mUploads;
+    public static final String EXTRA_MESSAGE3 = "com.example.myapplication2.MESSAGE3";
+    public static final String EXTRA_MESSAGE4 = "com.example.myapplication2.MESSAGE4";
+    public static final String EXTRA_MESSAGE5 = "com.example.myapplication2.MESSAGE5";
+    public static final String EXTRA_MESSAGE6 = "com.example.myapplication2.MESSAGE6";
+    public static final String EXTRA_MESSAGE7 = "com.example.myapplication2.MESSAGE7";
+
+
+
 
     public ImageAdapter(Context context, List<Upload> uploads){
         mContext = context;
@@ -34,7 +45,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Upload uploadCurrent = mUploads.get(position);
+        final Upload uploadCurrent = mUploads.get(position);
         holder.textViewName.setText(uploadCurrent.getName());
         holder.textViewExchangeWith.setText(uploadCurrent.getmXchange());
         Picasso.with(mContext)
@@ -42,6 +53,21 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                .fit()
             //   .centerCrop()
                 .into(holder.imageView);
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, FinalImageFromListViewActivity.class);
+                intent.putExtra(EXTRA_MESSAGE3, uploadCurrent.getName());
+                intent.putExtra(EXTRA_MESSAGE4, uploadCurrent.getmXchange());
+                intent.putExtra(EXTRA_MESSAGE5, uploadCurrent.getImageUrl());
+                intent.putExtra(EXTRA_MESSAGE6, uploadCurrent.getmUser());
+                intent.putExtra(EXTRA_MESSAGE7, uploadCurrent.getmId());
+
+                mContext.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

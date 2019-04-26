@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public static final String EXTRA_MESSAGE = "com.example.myapplication2.MESSAGE";
     public static final String EXTRA_MESSAGE1 = "com.example.myapplication2.MESSAGE1";
     public static final String EXTRA_MESSAGE2 = "com.example.myapplication2.MESSAGE2";
+    public static final String EXTRA_MESSAGE3 = "com.example.myapplication2.MESSAGE3";
+    public static final String EXTRA_MESSAGE4 = "com.example.myapplication2.MESSAGE4";
+
 
 
 
@@ -82,13 +86,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private Button mTextViewShowUploads;
-    Button logoutBtn;
-// vase sign in az to main avordam:
+    private ImageButton mTextViewShowUploads;
+    private ImageButton logoutBtn;
+    // vase sign in az to main avordam:
     private FirebaseAuth mAuth;
 
-//    FirebaseAuth mAuth;
-//    FirebaseAuth.AuthStateListener mAuthListener;
+    //    FirebaseAuth mAuth;
+    //    FirebaseAuth.AuthStateListener mAuthListener;
 
     private FirebaseFirestore db;
     private List<Upload> mUploads;
@@ -126,23 +130,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
 
          logoutBtn = findViewById(R.id.log_out);
-//        mAuth = FirebaseAuth.getInstance();
 
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                if (firebaseAuth.getCurrentUser() == null) {
-//                    startActivity(new Intent(MapActivity.this, SigninActivity.class));
-//                }
-//            }
-//        };
-//
-//        logoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mAuth.signOut();
-//            }
-//        });
 
 
         mUploads = new ArrayList<>();
@@ -162,7 +150,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Upload upload = document.toObject(Upload.class);
-                                upload.setId(document.getId());
+
+                                upload.setmId(document.getId());
                                 mUploads.add(upload);
 
 
@@ -186,9 +175,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         Upload upload = (Upload) arg0.getTag();
                                         intent.putExtra(EXTRA_MESSAGE, upload.getName());
                                         intent.putExtra(EXTRA_MESSAGE1, upload.getmXchange());
-
                                         intent.putExtra(EXTRA_MESSAGE2, upload.getImageUrl());
-
+                                        intent.putExtra(EXTRA_MESSAGE3, upload.getmId());
+                                        intent.putExtra(EXTRA_MESSAGE4, upload.getmUser());
 
 
                                         startActivity(intent);
@@ -270,7 +259,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     private void sendToStart(){
-        Intent startIntent = new Intent(MapActivity.this, StartActivity.class);
+        Intent startIntent = new Intent(MapActivity.this, LogoActivity.class);
         startActivity(startIntent);
         finish();
     }
@@ -370,15 +359,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //                            Intent intent1 = new Intent(MainActivity.this, MapActivity.class);
 //                            startActivity(intent1);
                             break;
-                        case R.id.nav_chat:
+//                        case R.id.nav_chat:
+//
+//
+//
+//
+////                            Intent intent2 = new Intent(MapActivity.this, ChatActivity.class);
+////                            startActivity(intent2);
+////                            break;
 
-                            Intent intent2 = new Intent(MapActivity.this, ChatActivity.class);
-                            startActivity(intent2);
+
+
+
+
+
+
 
                             //        selectedFragment = new ChatFragment();
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                                    selectedFragment).commit();
-                            break;
+
                         case R.id.nav_camera:
 
                             Intent intent3 = new Intent(MapActivity.this, CameraActivity.class);
@@ -387,14 +387,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                                    selectedFragment).commit();
                             break;
-                        case R.id.nav_notification:
 
-                            Intent intent4 = new Intent(MapActivity.this, NotificationsActivity.class);
-                            startActivity(intent4);
+//                        case R.id.nav_notification:
+//
+//
+//
+//                            Intent intent4 = new Intent(MapActivity.this, NotificationsActivity.class);
+//                            startActivity(intent4);
+//                            break
+//
+
+
+
+
+
                             //         selectedFragment = new NotificationsFragment();
 //                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                                    selectedFragment).commit();
-                            break;
+
                         case R.id.nav_favorite:
 
                             Intent intent5 = new Intent(MapActivity.this, FavoritesActivity.class);

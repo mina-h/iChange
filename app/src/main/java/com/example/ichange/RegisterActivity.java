@@ -117,6 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
+
                             mRegProgress.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);

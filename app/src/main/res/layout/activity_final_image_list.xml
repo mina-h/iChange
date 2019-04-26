@@ -9,7 +9,7 @@
 
 
     <ImageView
-        android:id="@+id/final_image"
+        android:id="@+id/final_image_list"
         android:layout_width="300dp"
         android:layout_height="400dp"
         android:layout_marginTop="40dp"
@@ -18,39 +18,39 @@
 
     <CheckBox
         android:button="@drawable/fav_checkbox"
-        android:id="@+id/nav_checkbox"
+        android:id="@+id/nav_checkbox_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="377dp"
         android:layout_marginLeft="310dp"
         android:background="@drawable/fav_default" />
 
-   <TextView
-       android:id="@+id/final_image_name"
-       android:layout_width="300dp"
-       android:layout_height="25dp"
-       android:text="Image name"
-       android:gravity="center_horizontal"
-       android:background="@color/grey"
-       android:backgroundTint="#40FFFFFF"
-       android:textColor="@color/white"
-       android:textStyle="bold"
-       android:layout_centerHorizontal="true"
+    <TextView
+        android:id="@+id/final_image_name_list"
+        android:layout_width="300dp"
+        android:layout_height="25dp"
+        android:text="Image name"
+        android:gravity="center_horizontal"
+        android:background="@color/grey"
+        android:backgroundTint="#40FFFFFF"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp"       />
 
     <TextView
-        android:id="@+id/ichange_with"
+        android:id="@+id/ichange_with_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="iChange it with:"
         android:textColor="@color/white"
-        android:layout_below="@+id/final_image_name"
+        android:layout_below="@+id/final_image_name_list"
         android:layout_marginTop="320dp"
         android:layout_centerHorizontal="true"/>
 
     <TextView
-        android:id="@+id/final_image_exchange_with"
-        android:layout_below="@+id/final_image_name"
+        android:id="@+id/final_image_exchange_with_list"
+        android:layout_below="@+id/final_image_name_list"
         android:layout_width="300dp"
         android:layout_height="25dp"
         android:text="Exchange with"
@@ -64,8 +64,8 @@
         />
 
     <TextView
-        android:id="@+id/information"
-        android:layout_below="@+id/final_image"
+        android:id="@+id/information_list"
+        android:layout_below="@+id/final_image_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contact information:"
@@ -73,11 +73,11 @@
         android:layout_centerHorizontal="true"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
-       />
+        />
 
     <TextView
-        android:id="@+id/dealer_name"
-        android:layout_below="@+id/information"
+        android:id="@+id/dealer_name_list"
+        android:layout_below="@+id/information_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dealer name"
@@ -88,8 +88,8 @@
         android:layout_marginTop="17sp"        />
 
     <TextView
-        android:id="@+id/dealer_number"
-        android:layout_below="@+id/dealer_name"
+        android:id="@+id/dealer_number_list"
+        android:layout_below="@+id/dealer_name_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dealer number"
@@ -100,8 +100,8 @@
         android:layout_margin="4dp"
         />
     <TextView
-        android:id="@+id/dealer_email"
-        android:layout_below="@+id/dealer_number"
+        android:id="@+id/dealer_email_list"
+        android:layout_below="@+id/dealer_number_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Dealer email"

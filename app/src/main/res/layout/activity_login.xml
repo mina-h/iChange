@@ -4,37 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:backgroundTint="#80FFFFFF"
-    android:backgroundTintMode="src_over"
+    android:background="@color/lightGreen"
     tools:context=".RegisterActivity">
 
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/login_email"
-        android:layout_width="395dp"
+    <TextView
+        android:id="@+id/log_in"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="8dp"
+        android:text="Log in to your account"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_display_name">
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_email"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_in">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
             android:hint="Email"
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/login_password"
-        android:layout_width="395dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_email">
 
@@ -42,16 +60,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:backgroundTint="@color/white"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="36dp"
+        android:background="@drawable/sign_up_btn"
         android:text="Log in"
+        android:textColor="@color/white"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password" />
 </android.support.constraint.ConstraintLayout>

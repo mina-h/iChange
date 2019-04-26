@@ -10,20 +10,21 @@ import java.util.Date;
 public class Upload {
 
     private String mName;
+    private String mUser;
     private String mXchange;
     private String mImageUrl;
     private GeoPoint mGeopoint;
     private @ServerTimestamp Date timeStamp;
-    @Exclude private String id;
+    @Exclude private String mId;
 
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+//    public String getId() {
+//        return mId;
+//    }
+//
+//    public void setId(String id) {
+//        this.mId = id;
+//    }
 
 
 
@@ -32,7 +33,9 @@ public class Upload {
 
     }
 
-    public Upload(String name, String imageUrl, String xchange, GeoPoint geoPoint) {
+
+
+    public Upload(String name, String user, String imageUrl, String xchange, GeoPoint geoPoint, String id) {
 
         if (name.trim().equals("")) {
             name = "No Name";
@@ -42,10 +45,14 @@ public class Upload {
         mImageUrl = imageUrl;
         mXchange = xchange;
         mGeopoint = geoPoint;
+        mId = id;
+        mUser = user;
+
 
 
 
     }
+
 
     public String getName() {
         return mName;
@@ -87,4 +94,20 @@ public class Upload {
     public void setmGeopoint(GeoPoint mGeopoint) {
         this.mGeopoint = mGeopoint;
     }
+
+    public String getmId() {
+        return mId;
+    }
+
+    public void setmId(String mId) {
+        this.mId = mId;
+    }
+    public String getmUser() {
+        return mUser;
+    }
+
+    public void setmUser(String mUser) {
+        this.mUser = mUser;
+    }
+
 }

@@ -5,7 +5,9 @@
     android:layout_width="300dp"
     android:layout_height="150dp"
     android:layout_gravity="center_horizontal"
-    android:background="@color/red"
+    android:background="@drawable/layout_bg"
+
+
     android:padding="10dp">
 
     <RelativeLayout
@@ -16,34 +18,55 @@
             android:id="@+id/info_marker_image"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_centerVertical="true"
+
             />
+
+
 
         <TextView
             android:id="@+id/info_marker_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_toEndOf="@+id/info_marker_image"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="#000"
-            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:textSize="17sp"
             android:textStyle="bold"
+            android:layout_marginTop="30dp"
+
 
             />
+
+
+         <TextView
+             android:id="@+id/title_exchange"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_below="@+id/info_marker_title"
+             android:layout_marginStart="20dp"
+             android:layout_toEndOf="@+id/info_marker_image"
+             android:text="Xchange with:"
+             android:textSize="15sp"
+             android:layout_marginTop="10dp"/>
          <TextView
              android:id="@+id/exchange"
              android:layout_toEndOf="@+id/info_marker_image"
-             android:layout_below="@+id/info_marker_title"
+             android:layout_below="@+id/title_exchange"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:layout_marginStart="10dp"
+             android:layout_marginStart="20dp"
              android:ellipsize="end"
              android:maxLines="1"
-             android:textSize="14sp"
-             android:textColor="#000"/>
+             android:textSize="17sp"
+             android:textColor="@color/white"
+             android:layout_marginTop="10dp"
+             android:textStyle="bold"
+             />
 
     </RelativeLayout>
 

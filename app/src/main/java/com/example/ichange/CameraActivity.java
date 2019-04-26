@@ -36,8 +36,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.storage.FirebaseStorage;
@@ -65,6 +67,7 @@ public class CameraActivity extends AppCompatActivity {
     private GeoPoint geoPoint;
     private ImageView mImageView;
     private ProgressBar mProgressbar;
+    private String id;
 
     private Uri mImageUri;
 
@@ -283,17 +286,29 @@ public class CameraActivity extends AppCompatActivity {
 
                                 Toast.makeText(CameraActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
 
-                                //mStorageRef.child(System.currentTimeMillis()
-                                //      + "." + getFileExtention(mImageUri)).getDownloadUrl().toString(),
 
-                                Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
+                                //added this for saving id for favorites
+                              //  DocumentReference key = db.collection("uploads").document();
+
+
+                                String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                final Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
+                                        owner,
                                         downloadUri.toString()
                                         , mEditTextXchange.getText().toString().trim(),
-                                        geoPoint); //tasksnapshot ... mstorage
+                                        geoPoint, "");
+                                //va oon key.getid bala
 
-                                String uploadId = mDatabaseRef.push().getKey();
 
-                                db.collection("uploads").add(upload);
+
+//                                String uploadId = mDatabaseRef.push().getKey();
+
+                                db.collection("uploads").add(upload).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                        upload.setmId( task.getResult().getId());
+                                    }
+                                });
                                 //mDatabaseRef.child(uploadId).setValue(upload);
 
                                 Intent intent = new Intent(CameraActivity.this, ListViewActivity.class);
@@ -330,31 +345,29 @@ public class CameraActivity extends AppCompatActivity {
                             Intent intent1 = new Intent(CameraActivity.this, MapActivity.class);
                             startActivity(intent1);
                             break;
-                        case R.id.nav_chat:
 
-                            Intent intent2 = new Intent(CameraActivity.this, ChatActivity.class);
-                            startActivity(intent2);
 
-                            //        selectedFragment = new ChatFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
-                            break;
+//                        case R.id.nav_chat:
+//
+//                            Intent intent2 = new Intent(CameraActivity.this, ChatActivity.class);
+//                            startActivity(intent2);
+//                            break;
+
+
                         case R.id.nav_camera:
 
 //                            Intent intent3 = new Intent(MapActivity.this, CameraActivity.class);
 //                            startActivity(intent3);
-                            //         selectedFragment = new CameraFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
-                            break;
-                        case R.id.nav_notification:
 
-                            Intent intent4 = new Intent(CameraActivity.this, NotificationsActivity.class);
-                            startActivity(intent4);
-                            //         selectedFragment = new NotificationsFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
                             break;
+
+
+//                        case R.id.nav_notification:
+//
+//                            Intent intent4 = new Intent(CameraActivity.this, NotificationsActivity.class);
+//                            startActivity(intent4);
+//                            break;
+
                         case R.id.nav_favorite:
 
                             Intent intent5 = new Intent(CameraActivity.this, FavoritesActivity.class);

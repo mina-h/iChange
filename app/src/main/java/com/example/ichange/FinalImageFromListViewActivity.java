@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +29,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FinalImage extends AppCompatActivity {
+public class FinalImageFromListViewActivity extends AppCompatActivity {
 
 
     private ImageView finalImage;
@@ -44,33 +43,40 @@ public class FinalImage extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_final_image);
+        setContentView(R.layout.activity_final_image_list);
 
 
-        finalImage = findViewById(R.id.final_image);
+        finalImage = findViewById(R.id.final_image_list);
 //        dealerNumber = findViewById(R.id.dealer_number);
 //        dealerEmail = findViewById(R.id.dealer_email);
+
+
         db = FirebaseFirestore.getInstance();
+        finalImageName = findViewById(R.id.final_image_name_list);
+        finalImageExchange = findViewById(R.id.final_image_exchange_with_list);
 
 
-        checkBox = findViewById(R.id.nav_checkbox);
+
+        checkBox = findViewById(R.id.nav_checkbox_list);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if(isChecked){
                     Intent intent = getIntent();
-                    String id = intent.getStringExtra((MapActivity.EXTRA_MESSAGE3));
+                    String id = intent.getStringExtra((ImageAdapter.EXTRA_MESSAGE7));
 
                     Map<String, Object> favorites = new HashMap<>();
                     favorites.put("id", id);
 
                     String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     db.collection("users").document(uid).collection("favorites")
-                    .add(favorites)
+                            .add(favorites)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
@@ -89,51 +95,43 @@ public class FinalImage extends AppCompatActivity {
             }
         });
 
-
-
-        finalImageName = findViewById(R.id.final_image_name);
-        finalImageExchange = findViewById(R.id.final_image_exchange_with);
-
-
-        Intent intent = getIntent();
-        String imageName = intent.getStringExtra(MapActivity.EXTRA_MESSAGE);
-        finalImageName.setText(imageName);
+//        Intent intent = getIntent();
+//        String imageName = intent.getStringExtra(MapActivity.EXTRA_MESSAGE);
+//        finalImageName.setText(imageName);
 
 
 
-        //from adapter
-//        Intent intentList = getIntent();
-//        String imageNameList = intentList.getStringExtra(ImageAdapter.EXTRA_MESSAGE3);
-//        finalImageName.setText(imageNameList);
+//        from adapter
+        Intent intentList = getIntent();
+        String imageNameList = intentList.getStringExtra(ImageAdapter.EXTRA_MESSAGE3);
+        finalImageName.setText(imageNameList);
 
-
-        Intent intent1 = getIntent();
-        String exchangeWith = intent1.getStringExtra(MapActivity.EXTRA_MESSAGE1);
-        finalImageExchange.setText(exchangeWith);
+//
+//        Intent intent1 = getIntent();
+//        String exchangeWith = intent1.getStringExtra(MapActivity.EXTRA_MESSAGE1);
+//        finalImageExchange.setText(exchangeWith);
 
         //from adapter
-//        Intent intentList1 = getIntent();
-//        String exchangeWithList = intentList1.getStringExtra(ImageAdapter.EXTRA_MESSAGE4);
-//        finalImageExchange.setText(exchangeWithList);
+        Intent intentList1 = getIntent();
+        String exchangeWithList = intentList1.getStringExtra(ImageAdapter.EXTRA_MESSAGE4);
+        finalImageExchange.setText(exchangeWithList);
 
+//
+//        Intent intent2 = getIntent();
+//        String path = intent2.getStringExtra(MapActivity.EXTRA_MESSAGE2);
+//        Picasso.with(this).load(path)
+//                .into(finalImage);
 
-        Intent intent2 = getIntent();
-        String path = intent2.getStringExtra(MapActivity.EXTRA_MESSAGE2);
-        Picasso.with(this).load(path)
+        Intent intent3 = getIntent();
+        String path1 = intent3.getStringExtra(ImageAdapter.EXTRA_MESSAGE5);
+        Picasso.with(this).load(path1)
                 .into(finalImage);
 
 
-        //from adapter
-//        Intent intent3 = getIntent();
-//        String path1 = intent3.getStringExtra(ImageAdapter.EXTRA_MESSAGE5);
-//        Picasso.with(this).load(path1)
-//                .into(finalImage);
 
+        Intent intent4 = getIntent();
+        String owner = intent4.getStringExtra(ImageAdapter.EXTRA_MESSAGE6);
 
-
-        Intent intent3 = getIntent();
-        String owner = intent3.getStringExtra(MapActivity.EXTRA_MESSAGE4);
-//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         db.collection("users").document(owner)
                 .get()
@@ -145,15 +143,16 @@ public class FinalImage extends AppCompatActivity {
 
 
                             String dealer =  task.getResult().getString("Name");
-                            dealerName = findViewById(R.id.dealer_name);
+                            dealerName = findViewById(R.id.dealer_name_list);
                             dealerName.setText(dealer);
 
                             String phone = task.getResult().getString("Phone");
-                            dealerNumber = findViewById(R.id.dealer_number);
+                            dealerNumber = findViewById(R.id.dealer_number_list);
                             dealerNumber.setText(phone);
 
+
                             String email = task.getResult().getString("Email");
-                            dealerEmail = findViewById(R.id.dealer_email);
+                            dealerEmail = findViewById(R.id.dealer_email_list);
                             dealerEmail.setText(email);
 
 
@@ -165,5 +164,13 @@ public class FinalImage extends AppCompatActivity {
                         }
                     }
                 });
+
+
+
+
+
+
+
+
     }
 }

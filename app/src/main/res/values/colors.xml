@@ -6,5 +6,14 @@
     <color name="red">#ffff0000</color>
 
     <color name="blue">#2196F3</color>
+    <color name="green">#57C5D2</color>
+    <color name="lightGreen">#91D0B6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#6A6A6A</color>
+    <color name="pink">#FF5F71</color>
+
+
+
+
 
 </resources>

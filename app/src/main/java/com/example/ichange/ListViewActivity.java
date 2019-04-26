@@ -91,31 +91,30 @@ public class ListViewActivity extends AppCompatActivity {
                             Intent intent1 = new Intent(ListViewActivity.this, MapActivity.class);
                             startActivity(intent1);
                             break;
-                        case R.id.nav_chat:
 
-                            Intent intent2 = new Intent(ListViewActivity.this, ChatActivity.class);
-                            startActivity(intent2);
 
-                            //        selectedFragment = new ChatFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
-                            break;
+//                        case R.id.nav_chat:
+//
+//                            Intent intent2 = new Intent(ListViewActivity.this, ChatActivity.class);
+//                            startActivity(intent2);
+//                            break;
+
+
                         case R.id.nav_camera:
 
                             Intent intent3 = new Intent(ListViewActivity.this, CameraActivity.class);
                             startActivity(intent3);
-                            //         selectedFragment = new CameraFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
                             break;
-                        case R.id.nav_notification:
 
-                            Intent intent4 = new Intent(ListViewActivity.this, NotificationsActivity.class);
-                            startActivity(intent4);
-                            //         selectedFragment = new NotificationsFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
-                            break;
+
+
+//                        case R.id.nav_notification:
+//
+//                            Intent intent4 = new Intent(ListViewActivity.this, NotificationsActivity.class);
+//                            startActivity(intent4);
+//                            break;
+
+
                         case R.id.nav_favorite:
 
                             Intent intent5 = new Intent(ListViewActivity.this, FavoritesActivity.class);
