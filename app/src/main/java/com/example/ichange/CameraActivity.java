@@ -55,26 +55,21 @@ public class CameraActivity extends AppCompatActivity {
     private static final int REQUEST_LOCATION = 1;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
-
     private static final int PICK_IMAGE_REQUEST = 1;
-
     private Button mButtonChooseImage;
     private Button mButtonUpload;
-    // private TextView mTextViewShowUploads;
     private EditText mEditTextFileName;
     private EditText mEditTextXchange;
- //   private Timestamp timestamp;
     private GeoPoint geoPoint;
     private ImageView mImageView;
     private ProgressBar mProgressbar;
     private String id;
-
     private Uri mImageUri;
-
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
     private FirebaseFirestore db;
     private StorageTask mUploadTask;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,26 +98,25 @@ public class CameraActivity extends AppCompatActivity {
             @Override
             public void onLocationResult(LocationResult locationResult){
                 for(Location location : locationResult.getLocations())
-                   // Log.d("LocationTest", "lat: " + location.getLatitude() + " , lng: " + location.getLongitude());
-
-                 geoPoint = new GeoPoint(location.getLatitude() , location.getLongitude());
+                    geoPoint = new GeoPoint(location.getLatitude() , location.getLongitude());
             }
         };
 
-        // startLocationUpdate();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+        bottomNav.getMenu().findItem(R.id.nav_camera).setChecked(true);
 
         mButtonChooseImage = findViewById(R.id.button_choose_image);
         mButtonUpload = findViewById(R.id.button_upload);
-        //   mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
         mEditTextFileName = findViewById(R.id.edit_text_file_name);
         mEditTextXchange = findViewById(R.id.edit_text_exchange_with);
         mImageView = findViewById(R.id.image_view);
         mProgressbar = findViewById(R.id.progress_bar);
-
-
         mStorageRef = FirebaseStorage.getInstance().getReference("Uploads");
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
         db = FirebaseFirestore.getInstance();
+
 
 
         mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
@@ -142,19 +136,6 @@ public class CameraActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        mTextViewShowUploads.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-
-
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-        bottomNav.getMenu().findItem(R.id.nav_camera).setChecked(true);
-//        geoPoint = new GeoPoint(13 , -34);
 
     }
 
@@ -203,7 +184,6 @@ public class CameraActivity extends AppCompatActivity {
                 
             }
         }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
@@ -218,12 +198,11 @@ public class CameraActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-
             Picasso.with(this).load(mImageUri).into(mImageView);
-
         }
     }
 
@@ -234,9 +213,6 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void uploadFile() {
-
-        Log.d("!!!", "uploadFile: !!");
-
 
         if (mImageUri != null) {
             Log.d("!!!", "uploadFile: 1");
@@ -258,23 +234,17 @@ public class CameraActivity extends AppCompatActivity {
                         @Override
                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                             if (!task.isSuccessful()) {
-                                Log.d("!!!", "uploadFile: 2");
                                 throw task.getException();
                             }
-
                             Log.d("!!!", "uploadFile: 3");
-                            // Continue with the task to get the download URL
                             return fileReference.getDownloadUrl();
                         }
                     })
                     .addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
-                            Log.d("!!!", "uploadFile: complete");
 
                             if (task.isSuccessful()) {
-                                Log.d("!!!", "uploadFile: success");
-
                                 Uri downloadUri = task.getResult();
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
@@ -287,9 +257,6 @@ public class CameraActivity extends AppCompatActivity {
                                 Toast.makeText(CameraActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
 
 
-                                //added this for saving id for favorites
-                              //  DocumentReference key = db.collection("uploads").document();
-
 
                                 String owner = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                 final Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
@@ -297,11 +264,6 @@ public class CameraActivity extends AppCompatActivity {
                                         downloadUri.toString()
                                         , mEditTextXchange.getText().toString().trim(),
                                         geoPoint, "");
-                                //va oon key.getid bala
-
-
-
-//                                String uploadId = mDatabaseRef.push().getKey();
 
                                 db.collection("uploads").add(upload).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                     @Override
@@ -309,7 +271,7 @@ public class CameraActivity extends AppCompatActivity {
                                         upload.setmId( task.getResult().getId());
                                     }
                                 });
-                                //mDatabaseRef.child(uploadId).setValue(upload);
+
 
                                 Intent intent = new Intent(CameraActivity.this, ListViewActivity.class);
                                         startActivity(intent);
@@ -317,6 +279,7 @@ public class CameraActivity extends AppCompatActivity {
                             } else {
                                 Toast.makeText(CameraActivity.this, "Upload unsuccessful", Toast.LENGTH_LONG).show();
                             }
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -326,61 +289,33 @@ public class CameraActivity extends AppCompatActivity {
                         }
                     });
 
-
         } else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    // Fragment selectedFragment = null;
 
                     switch (item.getItemId()) {
                         case R.id.nav_home:
-                            //      selectedFragment = new HomeFragment();
 
                             Intent intent1 = new Intent(CameraActivity.this, MapActivity.class);
                             startActivity(intent1);
                             break;
 
-
-//                        case R.id.nav_chat:
-//
-//                            Intent intent2 = new Intent(CameraActivity.this, ChatActivity.class);
-//                            startActivity(intent2);
-//                            break;
-
-
                         case R.id.nav_camera:
-
-//                            Intent intent3 = new Intent(MapActivity.this, CameraActivity.class);
-//                            startActivity(intent3);
-
                             break;
-
-
-//                        case R.id.nav_notification:
-//
-//                            Intent intent4 = new Intent(CameraActivity.this, NotificationsActivity.class);
-//                            startActivity(intent4);
-//                            break;
 
                         case R.id.nav_favorite:
 
                             Intent intent5 = new Intent(CameraActivity.this, FavoritesActivity.class);
                             startActivity(intent5);
-                            //         selectedFragment = new FavoritesFragment();
-//                            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                                    selectedFragment).commit();
                             break;
-
                     }
-
-//                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        selectedFragment).commit();
 
                     return false;
                 }

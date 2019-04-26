@@ -55,7 +55,7 @@ public class FavoritesActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         CollectionReference uploadsRef =   db.collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("favorites");
-
+        uploadsRef.orderBy("timeStamp", Query.Direction.ASCENDING);
         uploadsRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

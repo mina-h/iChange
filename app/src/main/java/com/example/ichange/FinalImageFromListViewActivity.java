@@ -61,39 +61,39 @@ public class FinalImageFromListViewActivity extends AppCompatActivity {
         finalImageExchange = findViewById(R.id.final_image_exchange_with_list);
 
 
-
-        checkBox = findViewById(R.id.nav_checkbox_list);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if(isChecked){
-                    Intent intent = getIntent();
-                    String id = intent.getStringExtra((ImageAdapter.EXTRA_MESSAGE7));
-
-                    Map<String, Object> favorites = new HashMap<>();
-                    favorites.put("id", id);
-
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    db.collection("users").document(uid).collection("favorites")
-                            .add(favorites)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-//                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-//                                    Log.w(TAG, "Error adding document", e);
-                                }
-                            });
-
-
-                }
-            }
-        });
+//
+//        checkBox = findViewById(R.id.nav_checkbox_list);
+//        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//                if(isChecked){
+//                    Intent intent = getIntent();
+//                    String id = intent.getStringExtra((ImageAdapter.EXTRA_MESSAGE7));
+//
+//                    Map<String, Object> favorites = new HashMap<>();
+//                    favorites.put("id", id);
+//
+//                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//                    db.collection("users").document(uid).collection("favorites")
+//                            .add(favorites)
+//                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                @Override
+//                                public void onSuccess(DocumentReference documentReference) {
+////                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+////                                    Log.w(TAG, "Error adding document", e);
+//                                }
+//                            });
+//
+//
+//                }
+//            }
+//        });
 
 //        Intent intent = getIntent();
 //        String imageName = intent.getStringExtra(MapActivity.EXTRA_MESSAGE);
